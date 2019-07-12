@@ -1,0 +1,33 @@
+{
+  "name": "@hyperswarm/cli",
+  "version": "0.0.0",
+  "description": "CLI tool to interact with Hyperswarm",
+  "bin": {
+    "hyperswarm-discovery": "./discovery.js",
+    "hyperswarm-swarm": "./swarm.js"
+  },
+  "dependencies": {
+    "@hyperswarm/discovery": "^1.3.0",
+    "hyperswarm": "^2.0.4",
+    "minimist": "^1.2.0",
+    "pump": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyperswarm/cli.git"
+  },
+  "keywords": [
+    "hyperswarm",
+    "cli"
+  ],
+  "author": "Mathias Buus (@mafintosh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hyperswarm/cli/issues"
+  },
+  "homepage": "https://github.com/hyperswarm/cli#readme"
+}
