@@ -25,6 +25,7 @@ if (!argv.lookup && !argv.announce) {
   --hash, -h
   --key, -k
 `)
+  process.exit(1)
 }
 
 const swarm = hyperswarm()
