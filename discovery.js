@@ -8,12 +8,14 @@ const argv = minimist(process.argv, {
   boolean: [
     'ephemeral',
     'ping',
-    'hash'
+    'hash',
+    'find-node'
   ],
   default: {
     ephemeral: true
   },
   alias: {
+    'find-node': 'f',
     ephemeral: 'e',
     announce: 'a',
     unannounce: 'u',
@@ -24,7 +26,7 @@ const argv = minimist(process.argv, {
   }
 })
 
-if (!argv.ping && !argv.announce && !argv.unannounce && !argv.lookup) {
+if (!argv.ping && !argv.announce && !argv.unannounce && !argv.lookup && !argv['find-node']) {
   console.error(`Usage: hyperswarm-discovery [options]
 
   --announce, -a     [key]
@@ -45,6 +47,16 @@ const d = discovery({
 })
 
 const localPort = argv['local-port'] || argv.port || 0
+
+if (argv['find-node']) {
+  d.dht.query('_find_node', Buffer.alloc(32))
+    .on('data', function (data) {
+      if (data.node.id) console.log('Found: ' + data.node.id.toString('hex'))
+    })
+    .on('end', function () {
+      if (!argv.announce && !argv.lookup) process.exit()
+    })
+}
 
 if (argv.ping) {
   d.ping(function (err, nodes) {
