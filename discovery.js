@@ -27,7 +27,7 @@ const argv = minimist(process.argv, {
 })
 
 if (!argv.ping && !argv.announce && !argv.unannounce && !argv.lookup && !argv['find-node']) {
-  console.error(`Usage: hyperswarm-discovery [options]
+  console.error(`Usage: ${process.argv[1]} [options]
 
   --announce, -a     [key]
   --unannounce, -u   [key]
