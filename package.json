@@ -13,7 +13,9 @@
     "pump": "^3.0.0",
     "sodium-universal": "^2.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "standard": "^14.3.3"
+  },
   "scripts": {
     "test": "standard"
   },

@@ -59,7 +59,7 @@ if (argv['find-node']) {
 }
 
 if (argv.ping) {
-  d.ping(function (err, nodes) {
+  d.ping(function (_, nodes) {
     console.error('[pong]')
     console.log(nodes)
     if (!argv.announce && !argv.lookup) process.exit()
@@ -78,7 +78,6 @@ if (argv.announce) {
     topic.once('close', () => process.exit())
     topic.destroy()
   })
-
 } else if (argv.lookup) {
   d.lookup(key())
     .on('peer', function (peer) {
