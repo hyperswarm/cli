@@ -5,7 +5,8 @@
   "bin": {
     "hyperswarm": "./bin.js",
     "hyperswarm-discovery": "./discovery.js",
-    "hyperswarm-swarm": "./swarm.js"
+    "hyperswarm-swarm": "./swarm.js",
+    "hyperswarm-dht": "./dht.js"
   },
   "dependencies": {
     "@hyperswarm/discovery": "^1.3.0",
