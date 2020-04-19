@@ -18,7 +18,7 @@ const argv = minimist(process.argv, {
 })
 
 if (!argv.lookup && !argv.announce) {
-  console.error(`Usage: hyperswarm-swarm [options]
+  console.error(`Usage: ${process.argv[1]} [options]
 
   --announce, -a
   --lookup, -l
