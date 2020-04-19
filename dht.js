@@ -61,7 +61,7 @@ const dht = createDht({ ephemeral, adaptive: ephemeral, id: id.id, bootstrap })
 
 log(
   ({ start }) => `Starting Node:
-${util.inspect(start, { colors: true }).padStart(4)}
+${util.inspect(start, { colors: true })}
 `,
   {
     start: {
