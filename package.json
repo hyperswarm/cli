@@ -9,9 +9,10 @@
     "hyperswarm-dht": "./dht.js"
   },
   "dependencies": {
-    "@hyperswarm/discovery": "^1.3.0",
-    "hyperswarm": "^2.0.4",
-    "minimist": "^1.2.0",
+    "@hyperswarm/dht": "^3.6.2",
+    "@hyperswarm/discovery": "^1.11.4",
+    "hyperswarm": "^2.13.0",
+    "minimist": "^1.2.5",
     "pump": "^3.0.0",
     "sodium-universal": "^2.0.0"
   },
