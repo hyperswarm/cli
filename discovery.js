@@ -50,9 +50,10 @@ const localPort = argv['local-port'] || argv.port || 0
 if (argv['find-node']) {
   const k = argv['find-node'] !== true ? Buffer.from(argv['find-node'], 'hex') : Buffer.alloc(32)
   console.log('Looking for ' + k.toString('hex'))
+  const t = Date.now()
   d.dht.query('_find_node', k)
     .on('data', function (data) {
-      if (data.node.id) console.log('Found: ' + data.node.id.toString('hex') + ' ' + data.node.host + ':' + data.node.port)
+      if (data.node.id) console.log('Found: ' + data.node.id.toString('hex') + ' ' + data.node.host + ':' + data.node.port + ' (' + (Date.now() - t) + 'ms)')
     })
     .on('end', function () {
       if (!argv.announce && !argv.lookup) process.exit()
