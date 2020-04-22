@@ -8,8 +8,7 @@ const argv = minimist(process.argv, {
   boolean: [
     'ephemeral',
     'ping',
-    'hash',
-    'find-node'
+    'hash'
   ],
   default: {
     ephemeral: true
@@ -49,7 +48,9 @@ const d = discovery({
 const localPort = argv['local-port'] || argv.port || 0
 
 if (argv['find-node']) {
-  d.dht.query('_find_node', Buffer.alloc(32))
+  const k = argv['find-node'] !== true ? Buffer.from(argv['find-node'], 'hex') : Buffer.alloc(32)
+  console.log('Looking for ' + k.toString('hex'))
+  d.dht.query('_find_node', k)
     .on('data', function (data) {
       if (data.node.id) console.log('Found: ' + data.node.id.toString('hex') + ' ' + data.node.host + ':' + data.node.port)
     })
