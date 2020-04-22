@@ -1,29 +1,57 @@
 #!/usr/bin/env node
 
+const minimist = require('minimist')
 const { Remote } = require('@hyperswarm/tunnel')
+const argv = minimist(process.argv, {
+  boolean: [
+    'verbose',
+    'help'
+  ],
+  string: [
+    'announce'
+  ],
+  default: {
+    port: 0
+  },
+  alias: {
+    announce: 'a',
+    verbose: 'V',
+    port: 'p',
+    help: 'h'
+  }
+})
+
+if (argv.help) {
+  console.error(`Usage: ${process.argv[1]} [options]
+
+  --announce, -a     [key]   Announce a key immediately at start of the tunnel
+  --port, -p         [port]  Specify port to listen to tunnel
+  --verbose, -V              Print all lookups,announces,unannounces
+`)
+  process.exit(1)
+}
 
 const r = new Remote()
 
-r.listen(port())
+r.listen(argv.port)
 
-r.on('forward-listening', function (port, topic) {
-  console.log('Announcing ' + topic.toString('hex') + ' ' + port)
-})
-
-r.on('forward-close', function (port, topic) {
-  console.log('Unannouncing ' + topic.toString('hex') + ' ' + port)
-})
-
-r.on('forward-connect', function (socket, topic) {
-  console.log('Doing a lookup for ' + topic.toString('hex'))
-})
+if (argv.verbose) {
+  r.on('forward-listening', function (port, topic) {
+    console.log('Announcing ' + topic.toString('hex') + ' ' + port)
+  })
+  r.on('forward-close', function (port, topic) {
+    console.log('Unannouncing ' + topic.toString('hex') + ' ' + port)
+  })
+  r.on('forward-connect', function (_, topic) {
+    console.log('Doing a lookup for ' + topic.toString('hex'))
+  })
+}
 
 r.on('listening', function () {
   console.log('Listening on port ' + r.address().port)
 })
 
-const a = announce()
-if (a) r.announce(a)
+if (argv.announce) r.announce(Buffer.from(argv.announce, 'hex'))
 
 r.on('network-close', () => process.exit())
 
@@ -34,17 +62,3 @@ process.once('SIGINT', function () {
 process.once('SIGTERM', function () {
   r.destroy()
 })
-
-function port () {
-  let i = process.argv.indexOf('-p')
-  if (i === -1) i = process.argv.indexOf('--port')
-  if (i === -1) return 0
-  return Number(process.argv[i + 1]) || 0
-}
-
-function announce () {
-  let i = process.argv.indexOf('-a')
-  if (i === -1) i = process.argv.indexOf('--announce')
-  if (i === -1) return null
-  return Buffer.from(process.argv[i + 1], 'hex')
-}
