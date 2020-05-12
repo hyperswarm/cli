@@ -3,12 +3,14 @@
 const discovery = require('@hyperswarm/discovery')
 const sodium = require('sodium-universal')
 const minimist = require('minimist')
+const estimate = require('dht-size-up')
 
 const argv = minimist(process.argv, {
   boolean: [
     'ephemeral',
     'ping',
-    'hash'
+    'hash',
+    'size'
   ],
   default: {
     ephemeral: true
@@ -25,7 +27,7 @@ const argv = minimist(process.argv, {
   }
 })
 
-if (!argv.ping && !argv.announce && !argv.unannounce && !argv.lookup && !argv['find-node']) {
+if (!argv.ping && !argv.announce && !argv.unannounce && !argv.lookup && !argv['find-node'] && !argv['estimate-dht-size']) {
   console.error(`Usage: ${process.argv[1]} [options]
 
   --announce, -a     [key]
@@ -36,6 +38,7 @@ if (!argv.ping && !argv.announce && !argv.unannounce && !argv.lookup && !argv['f
   --hash, -h                 Autohash the key
   --no-ephemeral             Host other peoples keys/values
   --bootstrap, -b            Specify bootstrap peers
+  --estimate-dht-size        Estimate number of nodes in DHT
 `)
   process.exit(1)
 }
@@ -85,6 +88,13 @@ if (argv.announce) {
     .on('peer', function (peer) {
       console.log(peer)
     })
+}
+
+if (argv['estimate-dht-size']) {
+  estimate(d.dht, function (err, size, n, q) {
+    if (err) console.error(err)
+    else console.log(`Sampled ${n} nodes over ${q} queries. Estimated DHT size is ${size}.`)
+  })
 }
 
 function key () {
