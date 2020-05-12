@@ -9,8 +9,7 @@ const argv = minimist(process.argv, {
   boolean: [
     'ephemeral',
     'ping',
-    'hash',
-    'size'
+    'hash'
   ],
   default: {
     ephemeral: true
