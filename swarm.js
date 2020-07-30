@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const hyperswarm = require('hyperswarm')
-const sodium = require('sodium-universal')
+const sodium = require('sodium-native')
 const minimist = require('minimist')
 const pump = require('pump')
 
