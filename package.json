@@ -9,8 +9,8 @@
     "hyperswarm-dht": "./dht.js"
   },
   "dependencies": {
-    "@hyperswarm/dht": "^3.6.2",
-    "@hyperswarm/discovery": "^1.11.4",
+    "@hyperswarm/dht": "^4.0.1",
+    "@hyperswarm/discovery": "^2.0.1",
     "dht-size-up": "^1.0.0",
     "hyperswarm": "^2.13.0",
     "minimist": "^1.2.5",
@@ -18,7 +18,7 @@
     "sodium-native": "^3.1.1"
   },
   "devDependencies": {
-    "standard": "^14.3.3"
+    "standard": "^16.0.3"
   },
   "scripts": {
     "test": "standard"
