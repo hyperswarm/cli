@@ -1,17 +1,3 @@
-# Hyperswarm CLI
+# This tool has been deprecated
 
-A series of CLI tools to debug and interact with the Hyperswarm network.
-
-```sh
-npm install -g @hyperswarm/cli
-```
-
-## Usage
-
-```sh
-hyperswarm # will print help
-```
-
-## License
-
-MIT
+Use the bundled clis in each Hyperswarm module instead.
